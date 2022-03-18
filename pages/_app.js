@@ -1,7 +1,19 @@
-import '../styles/globals.css'
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import '../styles/globals.css';
+
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Head>
+        <title>SPA Example</title>
+      </Head>
+
+      <div className='app-container'>
+        <Component {...pageProps} />
+      </div>
+    </>
+  );
 }
-
-export default MyApp
