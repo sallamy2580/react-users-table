@@ -1,24 +1,15 @@
 import React, { useState } from 'react';
 
-const TableBody = ({ data, perPage }) => {
+const TableBody = ({ data }) => {
   return (
     <tbody>
-      {[
-        ...data.map(({ id, first_name, last_name, email }) => (
-          <tr key={email}>
-            <td>{first_name}</td>
-            <td>{last_name}</td>
-            <td>{email}</td>
-          </tr>
-        )),
-        // ...new Array(perPage - data.length + 1).fill(0).map((e, id) => (
-        //   <tr key={id}>
-        //     <td>&nbsp;</td>
-        //     <td>&nbsp;</td>
-        //     <td>&nbsp;</td>
-        //   </tr>
-        // )),
-      ]}
+      {data.map(({ id, first_name, last_name, email }) => (
+        <tr key={email}>
+          <td>{first_name}</td>
+          <td>{last_name}</td>
+          <td>{email}</td>
+        </tr>
+      ))}
     </tbody>
   );
 };
@@ -27,50 +18,42 @@ TableBody.displayName = 'TableBody';
 
 const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
   const [rows, setRows] = useState(tableData);
-
+  const [filter, setFilter] = useState({});
+  const [pageNum, setPageNum] = useState(currPage);
+  const [sortInit, setSortInit] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: columns[0].key, dir: 1 });
 
   const filterConfigInit = columns
     .map(({ key }) => key)
     .reduce((a, v) => ({ ...a, [v]: '' }), {});
-  const filterConfig = filterConfigInit;
+  const [filterConfig, setFilterConfig] = React.useState(filterConfigInit);
 
-  const [filterOn, setFilterOn] = useState(false);
-  const [filterRows, setFilterRows] = useState(tableData);
+  const sortCompareFn = (a, b, dir) => dir * a.localeCompare(b);
 
-  const [page, setPage] = useState(currPage);
+  const filterCompareFn = (a, b) =>
+    a.toLowerCase().indexOf(b.toLowerCase()) >= 0;
 
-  const sortedRows = React.useMemo(
-    () =>
-      tableData.sort((a, b) =>
-        sortConfig.dir > 0
-          ? a[sortConfig.key].localeCompare(b[sortConfig.key])
-          : -1 * a[sortConfig.key].localeCompare(b[sortConfig.key])
-      ),
-    [tableData, sortConfig]
-  );
+  const sortedRows = React.useMemo(() => {
+    console.log(filter);
 
-  const compareFn = (a, b) => a.toLowerCase().indexOf(b.toLowerCase()) >= 0;
+    if (sortInit || Object.keys(filter).length >= 0) {
+      return tableData
+        .sort((a, b) =>
+          sortCompareFn(a[sortConfig.key], b[sortConfig.key], sortConfig.dir)
+        )
+        .filter((e) =>
+          Object.keys(filter).every((k) => filterCompareFn(e[k], filter[k]))
+        );
+    }
+
+    return tableData;
+  }, [tableData, sortConfig, sortInit, filter]);
+
+  const prepareFilter = (query) =>
+    Object.fromEntries(Object.entries(query).filter(([_, v]) => v.length > 0));
 
   const filterSearchHandler = ({ target: { name: key, value } }) => {
-    filterConfig[key] = value;
-
-    if (Object.values(filterConfig).join('').length === 0) {
-      console.log('filter off');
-      setFilterOn(false);
-      setFilterRows(tableData);
-    } else {
-      const query = Object.fromEntries(
-        Object.entries(filterConfig).filter(([_, v]) => v.length > 0)
-      );
-
-      setFilterOn(true);
-      setFilterRows(
-        filterRows.filter((e) =>
-          Object.keys(query).every((k) => compareFn(e[k], value))
-        )
-      );
-    }
+    setFilter(prepareFilter({ ...filter, [key]: value }));
   };
 
   return (
@@ -82,6 +65,7 @@ const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
               <th
                 key={`sort-${key}`}
                 onClick={() => {
+                  setSortInit(true);
                   setSortConfig({ key, dir: -sortConfig.dir });
                 }}
               >
@@ -98,23 +82,18 @@ const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
           </tr>
         </thead>
         <TableBody
-          data={
-            filterOn
-              ? filterRows.slice((page - 1) * perPage, page * perPage)
-              : sortedRows.slice((page - 1) * perPage, page * perPage)
-          }
-          perPage={perPage}
+          data={sortedRows.slice((pageNum - 1) * perPage, pageNum * perPage)}
         />
       </table>
-      <button onClick={() => setPage((p) => p - 1)} disabled={page <= 1}>
+      <button onClick={() => setPageNum((p) => p - 1)} disabled={pageNum <= 1}>
         Prev
       </button>
-      <button onClick={loadMore} disabled={sortedRows.length >= total}>
+      <button onClick={loadMore} disabled={false}>
         Load more
       </button>
       <button
-        onClick={() => setPage((p) => p + 1)}
-        disabled={page * perPage > sortedRows.length}
+        onClick={() => setPageNum((p) => p + 1)}
+        disabled={pageNum * perPage > tableData.length}
       >
         Next
       </button>
