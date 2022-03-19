@@ -1,0 +1,25 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' vitals.vercel-insights.com; img-src * blob: data: *.fastly.net https://*.googletagmanager.com:* https://stats.g.doubleclick.net; script-src 'self' 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com https://*.googletagmanager.com:* www.gstatic.com *.googleapis.com; style-src 'self' 'unsafe-inline' *.googleapis.com https://*.googletagmanager.com:*; media-src 'self' *.fastly.net blob: https://*.googletagmanager.com:*; connect-src 'self' https://vitals.vercel-insights.com https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net;"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}
