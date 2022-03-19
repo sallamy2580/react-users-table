@@ -16,8 +16,7 @@ const TableBody = ({ data }) => {
 
 TableBody.displayName = 'TableBody';
 
-const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
-  const [rows, setRows] = useState(tableData);
+const Table = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore }) => {
   const [filter, setFilter] = useState({});
   const [pageNum, setPageNum] = useState(currPage);
   const [sortInit, setSortInit] = useState(false);
@@ -26,7 +25,6 @@ const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
   const filterConfigInit = columns
     .map(({ key }) => key)
     .reduce((a, v) => ({ ...a, [v]: '' }), {});
-  const [filterConfig, setFilterConfig] = React.useState(filterConfigInit);
 
   const sortCompareFn = (a, b, dir) => dir * a.localeCompare(b);
 
@@ -88,7 +86,7 @@ const Table = ({ columns, tableData, currPage, perPage, total, loadMore }) => {
       <button onClick={() => setPageNum((p) => p - 1)} disabled={pageNum <= 1}>
         Prev
       </button>
-      <button onClick={loadMore} disabled={false}>
+      <button onClick={loadMore} disabled={!hasMore}>
         Load more
       </button>
       <button

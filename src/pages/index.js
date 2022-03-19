@@ -26,13 +26,15 @@ export default function Home() {
   const [users, setUsers] = useState([]);
   const [cursor, setCursor] = useState(1);
   const [total, setTotal] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     fetch(`https://reqres.in/api/users?page=${cursor}`)
       .then((e) => e.json())
       .then((v) => {
-        setTotal(v.total)
-        setUsers((e) => [...e, ...v.data])
+        setTotal(v.total);
+        setUsers((e) => [...e, ...v.data]);
+        setHasMore(v.page < v.total_pages);
       });
   }, [cursor]);
 
@@ -47,9 +49,17 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {(
-          <Table columns={columns} tableData={users} currPage={1} perPage={5} total={total} loadMore={loadMore}/>
-        )}
+        {
+          <Table
+            columns={columns}
+            tableData={users}
+            currPage={1}
+            perPage={5}
+            total={total}
+            loadMore={loadMore}
+            hasMore={hasMore}
+          />
+        }
       </main>
 
       <footer className={styles.footer}>footer</footer>
