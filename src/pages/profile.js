@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useUser } from '../lib/hooks';
 
 function ProfileEdit() {
   const [user, { mutate }] = useUser();
+  const router = useRouter()
 
   async function handleEditProfile(e) {
     e.preventDefault();
@@ -29,7 +30,7 @@ function ProfileEdit() {
 
     if (res.status === 204) {
       mutate({ user: null });
-      Router.replace('/');
+      router.replace('/');
     }
   }
 
@@ -39,11 +40,11 @@ function ProfileEdit() {
         <form onSubmit={handleEditProfile}>
           <label>
             <span>First Name</span>
-            <input type='text' name='first_name' required defaultValue={user.first_name}/>
+            <input type='text' name='first_name' required defaultValue={user.first_name || ''}/>
           </label>
           <label>
             <span>Last Name</span>
-            <input type='text' name='last_name' required  defaultValue={user.last_name}/>
+            <input type='text' name='last_name' required  defaultValue={user.last_name || ''}/>
           </label>
           <div className='submit'>
             <button type='submit'>Update profile</button>
@@ -68,11 +69,12 @@ function ProfileEdit() {
 
 export default function ProfilePage() {
   const [user, { loading }] = useUser();
+  const router = useRouter()
 
   useEffect(() => {
     // redirect user to login if not authenticated
-    if (!loading && !user) Router.replace('/login');
-  }, [user, loading]);
+    if (!loading && !user) router.replace('/');
+  }, [user, loading, router]);
 
   return (
     <>

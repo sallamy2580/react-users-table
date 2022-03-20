@@ -1,68 +1,71 @@
 import crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 
-import dbConnect from './dbConnect'
+import dbConnect from '../utils/mongodb'
 import User from '../models/user'
 
-export function getAllUsers(req) {
+dbConnect()
+
+export async function getAllUsers() {
   // For demo purpose only. You are not likely to have to return all users.
-  return req.session.users;
+  return User.findAll({});
 }
 
-export function createUser(req, { email, password, first_name, last_name }) {
+export async function createUser({ email, password, first_name, last_name }) {
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
   const salt = crypto.randomBytes(16).toString('hex');
   const hash = crypto
     .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
     .toString('hex');
-  const user = {
-    id: uuidv4(),
+  const doc = new User({
     createdAt: Date.now(),
     email,
     first_name,
     last_name,
     hash,
     salt,
-  };
+  });
 
   // Here you should insert the user into the database
-  // await db.createUser(user)
-  req.session.users.push(user);
+  const user = await doc.save()
+  return user
 }
 
-export function findUserByemail(req, email) {
+export async function findUserByemail(email) {
   // Here you find the user based on id/email in the database
   // const user = await db.findUserById(id)
-  return req.session.users.find((user) => user.email === email);
+  const user = User.findOne({ email });
+  return user
 }
 
-export function updateUserByemail(req, email, update) {
+export const findOne = (e) => User.findOne(e)
+
+export async function updateUserByemail(email, update) {
   // Here you update the user based on id/email in the database
   // const user = await db.updateUserById(id, update)
-  const user = req.session.users.find((u) => u.email === email);
-  Object.assign(user, update);
+  const doc = User.find({ email });
+  Object.assign(doc, update);
+  const user = await doc.save()
   return user;
 }
 
-export function deleteUser(req, email) {
+export async function deleteUser(email) {
   // Here you should delete the user in the database
   // await db.deleteUser(req.user)
-  req.session.users = req.session.users.filter(
-    (user) => user.email !== req.user.email
-  );
+  await User.remove({ email })
 }
 
-export function checkUserEmailExist(req, email) {
+export async function checkUserEmailExist(email) {
   // Here you find the user based on id/email in the database
   // const user = await db.findUserById(id)
-  console.log(req.session.users);
-  return req.session.users.some((user) => user.email === email);
+  const user = await User.findOne({ email })
+  return user
 }
 
 // Compare the password of an already fetched user (using `findUserByemail`) and compare the
 // password for a potential match
-export function validatePassword(user, inputPassword) {
+export async function validatePassword(user, inputPassword) {
   const inputHash = crypto
     .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
     .toString('hex');
