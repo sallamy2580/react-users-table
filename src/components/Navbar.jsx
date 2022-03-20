@@ -1,8 +1,13 @@
 import Link from 'next/link'
 import { useUser } from '../lib/hooks'
 
-const Header = () => {
-  const user = useUser()
+export default function Navbar() {
+  const [user, { mutate }] = useUser()
+
+  async function handleLogout() {
+    await fetch('/api/logout')
+    mutate({ user: null })
+  }
 
   return (
     <header>
@@ -21,15 +26,24 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <a href="/api/logout">Logout</a>
+                <a role="button" onClick={handleLogout}>
+                  Logout
+                </a>
               </li>
             </>
           ) : (
-            <li>
-              <Link href="/login">
-                <a>Login</a>
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link href="/signup">
+                  <a>Sign up</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/login">
+                  <a>Login</a>
+                </Link>
+              </li>
+            </>
           )}
         </ul>
       </nav>
@@ -54,6 +68,7 @@ const Header = () => {
         a {
           color: #fff;
           text-decoration: none;
+          cursor: pointer;
         }
         header {
           color: #fff;
@@ -63,5 +78,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header

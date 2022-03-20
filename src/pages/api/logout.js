@@ -1,7 +1,11 @@
-import { removeTokenCookie } from '../../lib/auth-cookies'
+import nextConnect from 'next-connect'
+import auth from '../../middleware/auth'
 
-export default async function logout(req, res) {
-  removeTokenCookie(res)
-  res.writeHead(302, { Location: '/' })
-  res.end()
-}
+const handler = nextConnect()
+
+handler.use(auth).get((req, res) => {
+  req.logOut()
+  res.status(204).end()
+})
+
+export default handler
