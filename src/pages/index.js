@@ -26,12 +26,12 @@ const TableHandler = () => {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    fetch(`https://reqres.in/api/users?page=${cursor}`)
+    fetch(`/api/accounts/${cursor}/100`)
       .then((e) => e.json())
-      .then((v) => {
-        setTotal(v.total);
-        setData((e) => [...e, ...v.data]);
-        setHasMore(v.page < v.total_pages);
+      .then(({ docs, page, totalDocs, totalPages }) => {
+        setTotal(totalDocs);
+        setData((e) => [...e, ...docs]);
+        setHasMore(page < totalPages);
       });
   }, [cursor]);
 
@@ -42,7 +42,7 @@ const TableHandler = () => {
       columns={columns}
       tableData={data}
       currPage={1}
-      perPage={5}
+      perPage={100}
       total={total}
       loadMore={loadMore}
       hasMore={hasMore}
