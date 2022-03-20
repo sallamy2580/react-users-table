@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect';
 import auth from '../../middleware/auth';
-import { getAllUsers, createUser, findUserByemail } from '../../lib/db';
+import { getAllUsers, createUser, findUserByemail } from '../../controllers/user.controller';
 
 const handler = nextConnect();
 
