@@ -3,14 +3,14 @@ import crypto from 'crypto';
 import dbConnect from '../utils/mongodb'
 import User from '../models/user'
 
-dbConnect()
-
 export async function getAllUsers() {
+  await dbConnect()
   // For demo purpose only. You are not likely to have to return all users.
   return User.findAll({});
 }
 
 export async function createUser({ email, password, first_name, last_name }) {
+  await dbConnect()
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
   const salt = crypto.randomBytes(16).toString('hex');
@@ -32,15 +32,21 @@ export async function createUser({ email, password, first_name, last_name }) {
 }
 
 export async function findUserByemail(email) {
+  await dbConnect()
   // Here you find the user based on id/email in the database
   // const user = await db.findUserById(id)
   const user = User.findOne({ email });
   return user
 }
 
-export const findOne = (e) => User.findOne(e)
+export const findOne = async (e) => {
+  await dbConnect()
+
+  return User.findOne(e)
+}
 
 export async function updateUserByemail(email, update) {
+  await dbConnect()
   // Here you update the user based on id/email in the database
   // const user = await db.updateUserById(id, update)
   const doc = User.find({ email });
@@ -50,12 +56,14 @@ export async function updateUserByemail(email, update) {
 }
 
 export async function deleteUser(email) {
+  await dbConnect()
   // Here you should delete the user in the database
   // await db.deleteUser(req.user)
   await User.remove({ email })
 }
 
 export async function checkUserEmailExist(email) {
+  await dbConnect()
   // Here you find the user based on id/email in the database
   // const user = await db.findUserById(id)
   const user = await User.findOne({ email })
