@@ -16,7 +16,7 @@ const TableBody = ({ data }) => {
 
 TableBody.displayName = 'TableBody';
 
-const Table = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore }) => {
+const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore }) => {
   const [filter, setFilter] = useState({});
   const [pageNum, setPageNum] = useState(currPage);
   const [sortInit, setSortInit] = useState(false);
@@ -98,6 +98,6 @@ const Table = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore
     </>
   );
 };
-Table.displayName = 'ReactTable';
+TableComponent.displayName = 'ReactTable';
 
-export default Table;
+export default TableComponent;
