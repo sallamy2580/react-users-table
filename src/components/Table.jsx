@@ -59,8 +59,6 @@ const TableComponent = ({
     a.toLowerCase().indexOf(b.toLowerCase()) >= 0;
 
   const sortedRows = React.useMemo(() => {
-    console.log(filter);
-
     if (sortInit || Object.keys(filter).length >= 0) {
       return tableData
         .sort((a, b) =>
