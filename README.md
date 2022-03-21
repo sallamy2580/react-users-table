@@ -1,5 +1,7 @@
 ## SPA with React Table Component and User Authentication
 
+Built using Next.js, React.js, and Tailwindcss
+
 ### Features
 
 - [x] It should be SPA(React/Angular)
