@@ -1,5 +1,8 @@
 import Link from 'next/link';
+import { FaCaretDown, FaCloud } from 'react-icons/fa';
+
 import { useUser } from '../lib/hooks';
+import ThemeButton from './themebutton';
 
 export default function Navbar() {
   const [user, { mutate }] = useUser();
@@ -11,70 +14,46 @@ export default function Navbar() {
 
   return (
     <header>
-      <nav>
-        <ul>
-          <li>
-            <Link href='/'>
-              <a>Home</a>
+      <nav className='w-full flex justify-start items-center mx-auto max-w-4xl px-8 my-20'>
+        <Link href='/'>
+          <a className='focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200 flex flex-row'>
+            <FaCloud className='mr-5 mt-1' />
+            <span className='hidden md:block'>Home</span>
+          </a>
+        </Link>
+        {user ? (
+          <>
+            <Link href='/profile'>
+              <a className='focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200'>
+                Profile
+              </a>
             </Link>
-          </li>
-          {user ? (
-            <>
-              <li>
-                <Link href='/profile'>
-                  <a>Profile</a>
-                </Link>
-              </li>
-              <li>
-                <a role='button' onClick={handleLogout}>
-                  Logout
-                </a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link href='/signup'>
-                  <a>Sign up</a>
-                </Link>
-              </li>
-              <li>
-                <Link href='/login'>
-                  <a>Login</a>
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
+            <a
+              role='button'
+              onClick={handleLogout}
+              className='focus:outline-none ml-auto mr-10 transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200'
+            >
+              Logout
+            </a>
+          </>
+        ) : (
+          <div className='ml-auto'>
+            <Link href='/signup'>
+              <a className='focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200'>
+                Sign up
+              </a>
+            </Link>
+            <Link href='/login'>
+              <a className='focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200'>
+                Login
+              </a>
+            </Link>
+          </div>
+        )}
+        <div className='w-auto'>
+          <ThemeButton />
+        </div>
       </nav>
-      <style jsx>{`
-        nav {
-          max-width: 42rem;
-          margin: 0 auto;
-          padding: 0.2rem 1.25rem;
-        }
-        ul {
-          display: flex;
-          list-style: none;
-          margin-left: 0;
-          padding-left: 0;
-        }
-        li {
-          margin-right: 1rem;
-        }
-        li:first-child {
-          margin-left: auto;
-        }
-        a {
-          color: #fff;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        header {
-          color: #fff;
-          background-color: #333;
-        }
-      `}</style>
     </header>
   );
 }

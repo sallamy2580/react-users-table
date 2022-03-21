@@ -53,11 +53,21 @@ const TableHandler = () => {
 export default function HomePage() {
   const [user] = useUser();
   return (
-    <>
+    <div className='h-full w-full flex flex-col max-w-3xl mx-auto mb-16 sm:px-0'>
       {user && (
         <>
           <TableHandler />
         </>
+      )}
+      {!user && (
+        <h1
+          className='w-80 m-auto text-center'
+          style={{
+            fontSize: `3vh`,
+          }}
+        >
+          SPA with React Table component and User Authentication
+        </h1>
       )}
       <style jsx>{`
         li {
@@ -68,6 +78,6 @@ export default function HomePage() {
           word-wrap: break-word;
         }
       `}</style>
-    </>
+    </div>
   );
 }

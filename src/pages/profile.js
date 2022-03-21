@@ -4,7 +4,7 @@ import { useUser } from '../lib/hooks';
 
 function ProfileEdit() {
   const [user, { mutate }] = useUser();
-  const router = useRouter()
+  const router = useRouter();
 
   async function handleEditProfile(e) {
     e.preventDefault();
@@ -38,17 +38,42 @@ function ProfileEdit() {
     <>
       <div className='form-container'>
         <form onSubmit={handleEditProfile}>
-          <label>
-            <span>First Name</span>
-            <input type='text' name='first_name' required defaultValue={user.first_name || ''}/>
+          <label className='block mb-3'>
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+              First Name
+            </span>
+            <input
+              type='text'
+              name='first_name'
+              className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+              placeholder='First Name'
+              defaultValue={user.first_name}
+            />
           </label>
-          <label>
-            <span>Last Name</span>
-            <input type='text' name='last_name' required  defaultValue={user.last_name || ''}/>
+          <label className='block'>
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+              Last Name
+            </span>
+            <input
+              type='text'
+              name='last_name'
+              className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+              placeholder='First Name'
+              defaultValue={user.last_name}
+            />
           </label>
-          <div className='submit'>
-            <button type='submit'>Update profile</button>
-            <a role='button' className='delete' onClick={handleDeleteProfile}>
+          <div className='submit mt-3'>
+            <button
+              type='submit'
+              className='inline-block px-6 py-2.5 bg-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-blue-700 focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out'
+            >
+              Update profile
+            </button>
+            <a
+              role='button'
+              className='delete inline-block px-6 py-2.5 bg-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-blue-700 focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out'
+              onClick={handleDeleteProfile}
+            >
               Delete profile
             </a>
           </div>
@@ -69,7 +94,7 @@ function ProfileEdit() {
 
 export default function ProfilePage() {
   const [user, { loading }] = useUser();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     // redirect user to login if not authenticated
@@ -77,13 +102,11 @@ export default function ProfilePage() {
   }, [user, loading, router]);
 
   return (
-    <>
-      <h1>Profile</h1>
+    <div className='m-auto w-80'>
+      <h1 className='mb-3 font-bold'>Profile</h1>
 
       {user && (
         <>
-          <p>Your session:</p>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
           <ProfileEdit />
         </>
       )}
@@ -94,6 +117,6 @@ export default function ProfilePage() {
           word-wrap: break-word;
         }
       `}</style>
-    </>
+    </div>
   );
 }

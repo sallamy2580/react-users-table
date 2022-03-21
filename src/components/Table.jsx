@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 const TableBody = ({ data }) => {
   return (
     <tbody>
       {data.map(({ id, first_name, last_name, email }) => (
-        <tr key={email}>
-          <td>{first_name}</td>
-          <td>{last_name}</td>
-          <td>{email}</td>
+        <tr
+          key={email}
+          className='border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
+        >
+          <td
+            scope='row'
+            className='px-6 py-4 font-body text-gray-900 dark:text-white whitespace-nowrap'
+          >
+            {first_name}
+          </td>
+          <td
+            scope='row'
+            className='px-6 py-4 font-body text-gray-900 dark:text-white whitespace-nowrap'
+          >
+            {last_name}
+          </td>
+          <td
+            scope='row'
+            className='px-6 py-4 font-body text-gray-900 dark:text-white whitespace-nowrap'
+          >
+            {email}
+          </td>
         </tr>
       ))}
     </tbody>
@@ -16,7 +35,15 @@ const TableBody = ({ data }) => {
 
 TableBody.displayName = 'TableBody';
 
-const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore }) => {
+const TableComponent = ({
+  columns,
+  tableData,
+  currPage,
+  perPage,
+  total,
+  loadMore,
+  hasMore,
+}) => {
   const [filter, setFilter] = useState({});
   const [pageNum, setPageNum] = useState(currPage);
   const [sortInit, setSortInit] = useState(false);
@@ -56,11 +83,13 @@ const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore
 
   return (
     <>
-      <table>
-        <thead>
+      <table className='text-sm text-gray-500 dark:text-gray-400'>
+        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
           <tr>
             {columns.map(({ name, key }) => (
               <th
+                scope='col'
+                className='px-6 py-3'
                 key={`sort-${key}`}
                 onClick={() => {
                   setSortInit(true);
@@ -73,8 +102,14 @@ const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore
           </tr>
           <tr>
             {columns.map(({ key }) => (
-              <th key={`filter-${key}`}>
-                <input type='text' name={key} onChange={filterSearchHandler} />
+              <th key={`filter-${key}`} className='text-center'>
+                <input
+                  type='text'
+                  name={key}
+                  onChange={filterSearchHandler}
+                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-2 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                  placeholder={`Search for ${key}`}
+                />
               </th>
             ))}
           </tr>
@@ -83,18 +118,29 @@ const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore
           data={sortedRows.slice((pageNum - 1) * perPage, pageNum * perPage)}
         />
       </table>
-      <button onClick={() => setPageNum((p) => p - 1)} disabled={pageNum <= 1}>
-        Prev
-      </button>
-      <button onClick={loadMore} disabled={!hasMore}>
-        Load more
-      </button>
-      <button
-        onClick={() => setPageNum((p) => p + 1)}
-        disabled={pageNum * perPage > tableData.length}
-      >
-        Next
-      </button>
+      <div className='flex items-center pt-5 justify-center'>
+        <button
+          onClick={() => setPageNum((p) => p - 1)}
+          disabled={pageNum <= 1}
+          className='dark:text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        >
+          <FaArrowLeft />
+        </button>
+        <button
+          onClick={loadMore}
+          disabled={!hasMore}
+          className='dark:text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        >
+          Load more
+        </button>
+        <button
+          onClick={() => setPageNum((p) => p + 1)}
+          disabled={pageNum * perPage > tableData.length}
+          className='dark:text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        >
+          <FaArrowRight />
+        </button>
+      </div>
     </>
   );
 };

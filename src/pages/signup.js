@@ -7,7 +7,7 @@ export default function SignupPage() {
   const [user, { mutate }] = useUser();
   const [errorMsg, setErrorMsg] = useState('');
 
-  const [emailExist, setEmailExist] = useState(false)
+  const [emailExist, setEmailExist] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -46,38 +46,66 @@ export default function SignupPage() {
 
   return (
     <>
-      <h1>Sign up to Example</h1>
-      {errorMsg && <p className='error'>{errorMsg}</p>}
-      <div className='form-container'>
-        <form onSubmit={onSubmit}>
-          <label>
-            <span>First Name</span>
-            <input type='text' name='first_name' required />
-          </label>
-          <label>
-            <span>Last Name</span>
-            <input type='text' name='last_name' required />
-          </label>
-          <label>
-            <span>Email</span>
-            <input type='text' name='email' required />
-          </label>
-          <label>
-            <span>Password</span>
-            <input type='password' name='password' required />
-          </label>
-          <label>
-            <span>Repeat password</span>
-            <input type='password' name='rpassword' required />
-          </label>
-          <div className='submit'>
-            <button type='submit'>Sign up</button>
-            <Link href='/login'>
-              <a>I already have an account</a>
-            </Link>
-          </div>
-        </form>
-      </div>
+      <section className='mx-auto max-w-sm text-center'>
+        <div className='space-y-4'>
+          <header className='mb-3 text-xl font-bold'>
+            Create your profile
+          </header>
+
+          {errorMsg && <p className='error'>{errorMsg}</p>}
+
+          <form onSubmit={onSubmit}>
+            <div className='w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 mb-2'>
+              <input
+                type='text'
+                name='first_name'
+                required
+                placeholder='First name'
+                className='my-2 w-full border-none bg-transparent outline-none focus:outline-none'
+              />
+            </div>
+            <div className='w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 mb-2'>
+              <input
+                type='text'
+                name='last_name'
+                required
+                placeholder='Last name'
+                className='my-2 w-full border-none bg-transparent outline-none focus:outline-none'
+              />
+            </div>
+            <div className='w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 mb-2'>
+              <input
+                type='text'
+                name='email'
+                required
+                placeholder='Email Address'
+                className='my-2 w-full border-none bg-transparent outline-none focus:outline-none'
+              />
+            </div>
+            <div className='w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 mb-2'>
+              <input
+                type='password'
+                name='password'
+                required
+                placeholder='Type your Password'
+                className='my-2 w-full border-none bg-transparent outline-none focus:outline-none'
+              />
+            </div>
+            <div className='w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200'>
+              <input
+                type='passoword'
+                name='rpassword'
+                required
+                placeholder='Retype your Password'
+                className='my-2 w-full border-none bg-transparent outline-none focus:outline-none'
+              />
+            </div>
+            <button className='bg-sky-500/100 w-full rounded-2xl py-3 font-bold bg-blue-600 mt-3'>
+              CREATE ACCOUNT
+            </button>
+          </form>
+        </div>
+      </section>
     </>
   );
 }
