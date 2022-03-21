@@ -1,11 +1,14 @@
 import Navbar from '../components/Navbar'
 import Head from 'next/head';
+import { useEffect } from 'react';
 import '../styles/globals.css'
 
 import { ThemeProvider } from "next-themes"
 import { IconContext } from "react-icons"
 
 export default function MyApp({ Component, pageProps }) {
+  useEffect(() => console.info(`made with 💖 by sky`), [])
+
   return (
     <IconContext.Provider
       value={{
