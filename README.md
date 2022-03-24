@@ -20,8 +20,8 @@ Built using Next.js, React.js, and Tailwindcss
 - [x] It should be able to save data (In local storage or in db).
 - [x] It should be deployed & running in production (You can use ~~~Vercel~~~/Netlify or any other service you are familiar with for this)
   - [x] Deployed to Netlify
-- [ ] Mobile Responsive(Not mandatory)
-  - [ ] TODO TailwindCSS
+- [x] Mobile Responsive(Not mandatory)
+  - [x] TODO TailwindCSS
 
 ### Table Component
 
