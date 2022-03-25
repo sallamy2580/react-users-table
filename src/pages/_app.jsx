@@ -27,7 +27,7 @@ export default ({ Component, pageProps }) => {
         </Head>
         <Navbar />
         <main>
-          <div className="container">
+          <div className="container-full">
             <Component {...pageProps} />
           </div>
         </main>
