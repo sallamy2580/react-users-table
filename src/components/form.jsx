@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import LinkTo from './Link'
 
 const Form = ({ isLogin, errorMessage, onSubmit }) => (
   <form onSubmit={onSubmit}>
@@ -36,16 +36,12 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
     <div className="submit">
       {isLogin ? (
         <>
-          <Link href="/signup">
-            <a>I don&apos;t have an account</a>
-          </Link>
+          <LinkTo href="/signup">I don&apos;t have an account</LinkTo>
           <button type="submit">Login</button>
         </>
       ) : (
         <>
-          <Link href="/login">
-            <a>I already have an account</a>
-          </Link>
+          <LinkTo href="/login">I already have an account</LinkTo>
           <button type="submit">Signup</button>
         </>
       )}

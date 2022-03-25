@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 
+import LinkTo from '../components/Link'
 import { useUser } from '../lib/hooks'
 
 export default () => {
@@ -69,9 +69,9 @@ export default () => {
           </button>
 
           <div className="mt-3">
-            <Link href="/signup">
-              <a className="p-2">I don&apos;t have an account</a>
-            </Link>
+            <LinkTo href="/signup" className="p-2">
+              I don&apos;t have an account
+            </LinkTo>
           </div>
         </form>
       </div>
