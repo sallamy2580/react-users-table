@@ -40,6 +40,16 @@ module.exports = {
         unusedExports: true,
       },
     ],
+    'no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false,
+        argsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+      },
+    ],
     'prettier/prettier': 'error',
     'react/function-component-definition': [
       1,
