@@ -10,13 +10,14 @@ import Navbar from '../components/Navbar'
 export default ({ Component, pageProps }) => {
   useEffect(() => console.info(`made with 💖 by sky`), [])
 
-  const iconContext = useMemo(() => {
-    return {
+  const iconContext = useMemo(
+    () => ({
       size: `1em`,
       className: `react-icon`,
       style: { verticalAlign: `middle`, display: `inline-block` },
-    }
-  }, [])
+    }),
+    []
+  )
 
   return (
     <IconContext.Provider value={iconContext}>
