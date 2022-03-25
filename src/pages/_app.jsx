@@ -14,14 +14,12 @@ export default ({ Component, pageProps }) => {
     return {
       size: `1em`,
       className: `react-icon`,
-      style: { verticalAlign: `middle`, display: `inline-block` }
+      style: { verticalAlign: `middle`, display: `inline-block` },
     }
   }, [])
 
   return (
-    <IconContext.Provider
-      value={iconContext}
-    >
+    <IconContext.Provider value={iconContext}>
       <ThemeProvider attribute="class">
         <Head>
           <title>SPA with React Table component and User Authentication</title>
