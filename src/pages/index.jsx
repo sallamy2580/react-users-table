@@ -1,41 +1,40 @@
-import { useState, useEffect } from 'react';
-import { useUser, fetcher } from '../lib/hooks';
-import useSWR from 'swr';
+import React, { useEffect, useState } from 'react'
 
-import Table from '../components/Table';
+import Table from '../components/Table'
+import { useUser } from '../lib/hooks'
 
 const columns = [
   {
     name: 'First name',
-    key: 'first_name',
+    key: 'firstName',
   },
   {
     name: 'Last name',
-    key: 'last_name',
+    key: 'lastName',
   },
   {
     name: 'Email',
     key: 'email',
   },
-];
+]
 
 const TableHandler = () => {
-  const [data, setData] = useState([]);
-  const [cursor, setCursor] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [data, setData] = useState([])
+  const [cursor, setCursor] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
     fetch(`/api/accounts/${cursor}/100`)
       .then((e) => e.json())
       .then(({ docs, page, totalDocs, totalPages }) => {
-        setTotal(totalDocs);
-        setData((e) => [...e, ...docs]);
-        setHasMore(page < totalPages);
-      });
-  }, [cursor]);
+        setTotal(totalDocs)
+        setData((e) => [...e, ...docs])
+        setHasMore(page < totalPages)
+      })
+  }, [cursor])
 
-  const loadMore = () => setCursor((p) => p + 1);
+  const loadMore = () => setCursor((p) => p + 1)
 
   return (
     <Table
@@ -47,21 +46,18 @@ const TableHandler = () => {
       loadMore={loadMore}
       hasMore={hasMore}
     />
-  );
-};
+  )
+}
 
-export default function HomePage() {
-  const [user] = useUser();
+// eslint-disable-next-line import/no-unused-modules
+export default () => {
+  const [user] = useUser()
   return (
-    <div className='h-full w-full flex flex-col max-w-3xl mx-auto mb-16 sm:px-0'>
-      {user && (
-        <>
-          <TableHandler />
-        </>
-      )}
+    <div className="h-full w-full flex flex-col max-w-3xl mx-auto mb-16 sm:px-0">
+      {user && <TableHandler />}
       {!user && (
         <h1
-          className='w-80 m-auto text-center'
+          className="w-80 m-auto text-center"
           style={{
             fontSize: `3vh`,
           }}
@@ -79,5 +75,5 @@ export default function HomePage() {
         }
       `}</style>
     </div>
-  );
+  )
 }
