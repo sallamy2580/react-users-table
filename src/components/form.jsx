@@ -3,31 +3,31 @@ import Link from 'next/link'
 const Form = ({ isLogin, errorMessage, onSubmit }) => (
   <form onSubmit={onSubmit}>
     {!isLogin && (
-      <label htmlFor='firstName'>
+      <label htmlFor="firstName">
         <span>First Name</span>
         <input type="text" name="firstName" required />
       </label>
     )}
 
     {!isLogin && (
-      <label htmlFor='lastName'>
+      <label htmlFor="lastName">
         <span>Last Name</span>
         <input type="text" name="lastName" required />
       </label>
     )}
 
-    <label htmlFor='email'>
+    <label htmlFor="email">
       <span>Email</span>
       <input type="text" name="email" required />
     </label>
 
-    <label htmlFor='password'>
+    <label htmlFor="password">
       <span>Password</span>
       <input type="password" name="password" required />
     </label>
 
     {!isLogin && (
-      <label htmlFor='rpassword'>
+      <label htmlFor="rpassword">
         <span>Repeat password</span>
         <input type="password" name="rpassword" required />
       </label>
