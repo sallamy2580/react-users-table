@@ -1,4 +1,52 @@
-## SPA with React Table Component and User Authentication
+<p>
+  <div align="center">
+  <h2>
+    MERN App with User Authentication & Custom React Table Component<br /> <br />
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"
+        alt="Javascript"
+      />
+    </a>
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"
+        alt="Node.JS"
+      />
+    </a>
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"
+        alt="Next.js"
+      />
+    </a>
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"
+        alt="React.js"
+      />
+    </a>
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"
+        alt="MongoDB"
+      />
+    </a>
+    <a href="https://github.com/skyme5/react-users-table">
+      <img
+        src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white"
+        alt="ESLint"
+      />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img
+        src="https://img.shields.io/github/license/skyme5/puppeteer-bulk-print?color=blue&style=for-the-badge"
+        alt="License: MIT"
+      />
+    </a>
+  </h2>
+  </div>
+</p>
 
 Built using Next.js, React.js, and Tailwindcss
 
@@ -29,7 +77,15 @@ Table component implements sorting, search, pagination and fetching data, for th
 following props
 
 ```js
-const TableComponent = ({ columns, tableData, currPage, perPage, total, loadMore, hasMore }) => {}
+const TableComponent = ({
+  columns,
+  tableData,
+  currPage,
+  perPage,
+  total,
+  loadMore,
+  hasMore,
+}) => {}
 ```
 
 ### API
