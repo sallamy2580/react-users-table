@@ -1,57 +1,57 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 const Form = ({ isLogin, errorMessage, onSubmit }) => (
   <form onSubmit={onSubmit}>
     {!isLogin && (
-      <label>
+      <label htmlFor='firstName'>
         <span>First Name</span>
-        <input type='text' name='first_name' required />
+        <input type="text" name="firstName" required />
       </label>
     )}
 
     {!isLogin && (
-      <label>
+      <label htmlFor='lastName'>
         <span>Last Name</span>
-        <input type='text' name='last_name' required />
+        <input type="text" name="lastName" required />
       </label>
     )}
 
-    <label>
+    <label htmlFor='email'>
       <span>Email</span>
-      <input type='text' name='email' required />
+      <input type="text" name="email" required />
     </label>
 
-    <label>
+    <label htmlFor='password'>
       <span>Password</span>
-      <input type='password' name='password' required />
+      <input type="password" name="password" required />
     </label>
 
     {!isLogin && (
-      <label>
+      <label htmlFor='rpassword'>
         <span>Repeat password</span>
-        <input type='password' name='rpassword' required />
+        <input type="password" name="rpassword" required />
       </label>
     )}
 
-    <div className='submit'>
+    <div className="submit">
       {isLogin ? (
         <>
-          <Link href='/signup'>
+          <Link href="/signup">
             <a>I don&apos;t have an account</a>
           </Link>
-          <button type='submit'>Login</button>
+          <button type="submit">Login</button>
         </>
       ) : (
         <>
-          <Link href='/login'>
+          <Link href="/login">
             <a>I already have an account</a>
           </Link>
-          <button type='submit'>Signup</button>
+          <button type="submit">Signup</button>
         </>
       )}
     </div>
 
-    {errorMessage && <p className='error'>{errorMessage}</p>}
+    {errorMessage && <p className="error">{errorMessage}</p>}
 
     <style jsx>{`
       form,
@@ -93,6 +93,6 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
       }
     `}</style>
   </form>
-);
+)
 
-export default Form;
+export default Form
