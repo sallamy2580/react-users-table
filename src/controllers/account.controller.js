@@ -1,5 +1,5 @@
-import dbConnect from '../utils/mongodb';
-import Account from '../models/account';
+import Account from '../models/account'
+import dbConnect from '../utils/mongodb'
 
 export async function getAllAccounts(page, limit) {
   await dbConnect()
@@ -10,12 +10,13 @@ export async function getAllAccounts(page, limit) {
       page,
       limit,
     }
-  );
+  )
 }
 
-export async function createAccount({ first_name, last_name, email }) {
+// eslint-disable-next-line import/no-unused-modules
+export async function createAccount({ firstName, lastName, email }) {
   await dbConnect()
-  const doc = new Account({ first_name, last_name, email })
+  const doc = new Account({ firstName, lastName, email })
   const acc = await doc.save()
 
   return acc

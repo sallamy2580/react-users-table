@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI
+const { MONGODB_URI } = process.env
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -16,7 +16,8 @@ if (!MONGODB_URI) {
 let cached = global.mongoose
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
+  cached = { conn: null, promise: null }
+  global.mongoose = { conn: null, promise: null }
 }
 
 async function connectDB() {
@@ -31,12 +32,10 @@ async function connectDB() {
       useUnifiedTopology: true,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((m) => m)
   }
   cached.conn = await cached.promise
   return cached.conn
 }
 
-export default connectDB;
+export default connectDB

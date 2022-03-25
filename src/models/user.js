@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const UserSchema = new mongoose.Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       required: true,
       maxlength: [254, 'First name cannot be more than 50 characters'],
     },
-    last_name: {
+    lastName: {
       type: String,
       required: true,
       maxlength: [254, 'Last name cannot be more than 50 characters'],
@@ -30,6 +30,6 @@ const UserSchema = new mongoose.Schema(
   {
     timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
   }
-);
+)
 
-export default mongoose.models.Users || mongoose.model('Users', UserSchema);
+export default mongoose.models.Users || mongoose.model('Users', UserSchema)

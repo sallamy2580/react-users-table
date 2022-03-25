@@ -1,30 +1,30 @@
-import crypto from 'crypto';
+import crypto from 'crypto'
 
-import dbConnect from '../utils/mongodb'
 import User from '../models/user'
+import dbConnect from '../utils/mongodb'
 
 export async function getAllUsers() {
   await dbConnect()
   // For demo purpose only. You are not likely to have to return all users.
-  return User.findAll({});
+  return User.findAll({})
 }
 
-export async function createUser({ email, password, first_name, last_name }) {
+export async function createUser({ email, password, firstName, lastName }) {
   await dbConnect()
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
-  const salt = crypto.randomBytes(16).toString('hex');
+  const salt = crypto.randomBytes(16).toString('hex')
   const hash = crypto
     .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
-    .toString('hex');
+    .toString('hex')
   const doc = new User({
     createdAt: Date.now(),
     email,
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     hash,
     salt,
-  });
+  })
 
   // Here you should insert the user into the database
   const user = await doc.save()
@@ -35,7 +35,7 @@ export async function findUserByemail(email) {
   await dbConnect()
   // Here you find the user based on id/email in the database
   // const user = await db.findUserById(id)
-  const user = User.findOne({ email });
+  const user = User.findOne({ email })
   return user
 }
 
@@ -49,10 +49,10 @@ export async function updateUserByemail(email, update) {
   await dbConnect()
   // Here you update the user based on id/email in the database
   // const user = await db.updateUserById(id, update)
-  const doc = User.find({ email });
-  Object.assign(doc, update);
+  const doc = User.find({ email })
+  Object.assign(doc, update)
   const user = await doc.save()
-  return user;
+  return user
 }
 
 export async function deleteUser(email) {
@@ -62,6 +62,7 @@ export async function deleteUser(email) {
   await User.remove({ email })
 }
 
+// eslint-disable-next-line import/no-unused-modules
 export async function checkUserEmailExist(email) {
   await dbConnect()
   // Here you find the user based on id/email in the database
@@ -75,7 +76,7 @@ export async function checkUserEmailExist(email) {
 export async function validatePassword(user, inputPassword) {
   const inputHash = crypto
     .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
-    .toString('hex');
-  const passwordsMatch = user.hash === inputHash;
-  return passwordsMatch;
+    .toString('hex')
+  const passwordsMatch = user.hash === inputHash
+  return passwordsMatch
 }

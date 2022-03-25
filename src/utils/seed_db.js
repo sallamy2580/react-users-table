@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
-const { randEmail, randFirstName, randLastName } = require('@ngneat/falso');
+const mongoose = require('mongoose')
+const { randEmail, randFirstName, randLastName } = require('@ngneat/falso')
 
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 const AccountsSchema = new mongoose.Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       required: true,
       maxlength: [254, 'First name cannot be more than 50 characters'],
     },
-    last_name: {
+    lastName: {
       type: String,
       required: true,
       maxlength: [254, 'Last name cannot be more than 50 characters'],
@@ -25,9 +25,9 @@ const AccountsSchema = new mongoose.Schema(
   {
     timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
   }
-);
+)
 
-const Account = mongoose.model('Accounts', AccountsSchema);
+const Account = mongoose.model('Accounts', AccountsSchema)
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -39,11 +39,11 @@ mongoose
       .fill()
       .forEach(async () => {
         const doc = Account({
-          first_name: randFirstName({ withAccents: false }),
-          last_name: randLastName({ withAccents: false }),
+          firstName: randFirstName({ withAccents: false }),
+          lastName: randLastName({ withAccents: false }),
           email: randEmail(),
-        });
-        await doc.save();
-      });
+        })
+        await doc.save()
+      })
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err))

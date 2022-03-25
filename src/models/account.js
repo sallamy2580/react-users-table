@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 
 const AccountsSchema = new mongoose.Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       required: true,
       maxlength: [254, 'First name cannot be more than 50 characters'],
     },
-    last_name: {
+    lastName: {
       type: String,
       required: true,
       maxlength: [254, 'Last name cannot be more than 50 characters'],
@@ -23,8 +23,9 @@ const AccountsSchema = new mongoose.Schema(
   {
     timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
   }
-);
+)
 
 AccountsSchema.plugin(mongoosePaginate)
 
-export default mongoose.models.AccountsSchema || mongoose.model('Accounts', AccountsSchema);
+export default mongoose.models.Accounts ||
+  mongoose.model('Accounts', AccountsSchema)
