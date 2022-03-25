@@ -1,4 +1,5 @@
 import { parse, serialize } from 'cookie'
+
 import { createLoginSession, getLoginSession } from './auth'
 
 function parseCookies(req) {
@@ -13,13 +14,13 @@ function parseCookies(req) {
 export default function session({ name, secret, cookie: cookieOpts }) {
   return async (req, res, next) => {
     const cookies = parseCookies(req)
-    const token = cookies[name]
+    const existingToken = cookies[name]
     let unsealed = {}
 
-    if (token) {
+    if (existingToken) {
       try {
         // the cookie needs to be unsealed using the password `secret`
-        unsealed = await getLoginSession(token, secret)
+        unsealed = await getLoginSession(existingToken, secret)
       } catch (e) {
         // The cookie is invalid
       }
@@ -35,9 +36,9 @@ export default function session({ name, secret, cookie: cookieOpts }) {
         req.session.maxAge = cookieOpts.maxAge
       }
 
-      const token = await createLoginSession(req.session, secret)
+      const newToken = await createLoginSession(req.session, secret)
 
-      res.setHeader('Set-Cookie', serialize(name, token, cookieOpts))
+      res.setHeader('Set-Cookie', serialize(name, newToken, cookieOpts))
       oldEnd.apply(this, args)
     }
 
