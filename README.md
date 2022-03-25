@@ -64,19 +64,19 @@ Create new user
 {
   "email": "foo@example.com",
   "password": "example",
-  "first_name": "First",
-  "last_name": "Last"
+  "firstName": "First",
+  "lastName": "Last"
 }
 ```
 
 ##### PUT
 
-Update `first_name` and `last_name` for current user
+Update `firstName` and `lastName` for current user
 
 ```json
 {
-  "first_name": "first",
-  "last_name": "last"
+  "firstName": "first",
+  "lastName": "last"
 }
 ```
 
@@ -98,8 +98,8 @@ Create new user and login
 {
   "email": "foo@example.com",
   "password": "example",
-  "first_name": "First",
-  "last_name": "Last"
+  "firstName": "First",
+  "lastName": "Last"
 }
 ```
 
@@ -113,8 +113,8 @@ return Pagination object
   "docs": [{
       "createdAt": "1970-01-20T01:43:29.811Z"
       "email": "sombun.cano@orange.io"
-      "first_name": "Carlos"
-      "last_name": "Wilson"
+      "firstName": "Carlos"
+      "lastName": "Wilson"
       "updatedAt": "1970-01-20T01:43:29.811Z"
       "__v": 0
       "_id": "62379513f32bf566bb0f7c17"
