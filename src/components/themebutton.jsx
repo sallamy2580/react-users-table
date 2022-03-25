@@ -1,8 +1,8 @@
-import { useTheme } from "next-themes"
-import React, { useEffect, useState } from "react"
-import { FaMoon, FaSun } from "react-icons/fa"
+import { useTheme } from 'next-themes'
+import React, { useEffect, useState } from 'react'
+import { FaMoon, FaSun } from 'react-icons/fa'
 
-export default function ThemeButton() {
+export default () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
