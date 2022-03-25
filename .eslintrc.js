@@ -7,9 +7,9 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:@next/next/recommended',
     'airbnb',
     'prettier',
-    'plugin:@next/next/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -18,9 +18,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'simple-import-sort', 'import'],
+  plugins: ['react', 'simple-import-sort', 'import', 'prettier'],
   rules: {
-    'sort-vars': ['error', { ignoreCase: false }],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -31,20 +30,32 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
     'import/no-unused-modules': [
-      1,
-      { unusedExports: true, ignoreExports: ['./src/pages/api/'] },
+      0,
+      {
+        ignoreExports: ['./src/pages/api/'],
+        unusedExports: true,
+      },
     ],
+    'prettier/prettier': 'error',
     'react/function-component-definition': [
       1,
       {
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/jsx-props-no-spreading': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'error',
+    'sort-vars': [
+      'error',
+      {
+        ignoreCase: false,
       },
     ],
   },
