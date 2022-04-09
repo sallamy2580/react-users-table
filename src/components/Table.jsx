@@ -38,7 +38,8 @@ const TableComponent = ({
   const [sortInit, setSortInit] = useState(false)
   const [sortConfig, setSortConfig] = useState({ key: columns[0].key, dir: 1 })
 
-  const sortCompareFn = (a, b, dir) => dir * a.localeCompare(b)
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const sortCompareFn = (a, b, dir) => dir * a?.localeCompare(b)
 
   const filterCompareFn = (a, b) =>
     a.toLowerCase().indexOf(b.toLowerCase()) >= 0
