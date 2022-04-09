@@ -55,7 +55,7 @@ const TableComponent = ({
     }
 
     return tableData
-  }, [tableData, sortConfig, sortInit, filter])
+  }, [tableData, sortConfig.key, sortConfig.dir, sortInit, filter])
 
   const prepareFilter = (query) =>
     Object.fromEntries(Object.entries(query).filter(([_, v]) => v.length > 0))
